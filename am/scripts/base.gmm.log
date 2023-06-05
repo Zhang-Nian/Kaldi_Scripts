@@ -1,0 +1,149 @@
+nohup: ignoring input
+feat-to-len scp:/data/vipkid_feats/train_set/mfcc_pitch/librispeech/feats.scp ark,t:/data/liuxueliang/work/ENV/exp/base/gmm/train_short87742/tmp.len 
+Finish getting short data for training mono.
+steps/new_train_mono.sh --nj 72 --cmd run.pl /data/liuxueliang/work/ENV/exp/base/gmm/train_short87742 /data/liuxueliang/work/ENV/exp/base/lang /data/liuxueliang/work/ENV/exp/base/gmm/mono
+successfully finish splitting feature data!
+steps/new_train_mono.sh: Initializing monophone system.
+steps/new_train_mono.sh: Compiling training graphs
+steps/new_train_mono.sh: Aligning data equally (pass 0)
+steps/new_train_mono.sh: Pass 1
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 2
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 3
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 4
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 5
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 6
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 7
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 8
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 9
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 10
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 11
+steps/new_train_mono.sh: Pass 12
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 13
+steps/new_train_mono.sh: Pass 14
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 15
+steps/new_train_mono.sh: Pass 16
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 17
+steps/new_train_mono.sh: Pass 18
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 19
+steps/new_train_mono.sh: Pass 20
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 21
+steps/new_train_mono.sh: Pass 22
+steps/new_train_mono.sh: Pass 23
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 24
+steps/new_train_mono.sh: Pass 25
+steps/new_train_mono.sh: Pass 26
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 27
+steps/new_train_mono.sh: Pass 28
+steps/new_train_mono.sh: Pass 29
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 30
+steps/new_train_mono.sh: Pass 31
+steps/new_train_mono.sh: Pass 32
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 33
+steps/new_train_mono.sh: Pass 34
+steps/new_train_mono.sh: Pass 35
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 36
+steps/new_train_mono.sh: Pass 37
+steps/new_train_mono.sh: Pass 38
+steps/new_train_mono.sh: Aligning data
+steps/new_train_mono.sh: Pass 39
+steps/diagnostic/analyze_alignments.sh --cmd run.pl /data/liuxueliang/work/ENV/exp/base/lang /data/liuxueliang/work/ENV/exp/base/gmm/mono
+steps/diagnostic/analyze_alignments.sh: see stats in /data/liuxueliang/work/ENV/exp/base/gmm/mono/log/analyze_alignments.log
+559 warnings in /data/liuxueliang/work/ENV/exp/base/gmm/mono/log/acc.*.*.log
+25520 warnings in /data/liuxueliang/work/ENV/exp/base/gmm/mono/log/align.*.*.log
+/data/liuxueliang/work/ENV/exp/base/gmm/mono: nj=72 align prob=-101.32 over 175.15h [retry=0.0%, fail=0.0%] states=127 gauss=16094
+steps/new_train_mono.sh: Done training monophone system in /data/liuxueliang/work/ENV/exp/base/gmm/mono
+Finish training mono models.
+steps/new_align_si.sh --nj 72 --cmd run.pl /data/vipkid_feats/train_set/mfcc_pitch/librispeech /data/liuxueliang/work/ENV/exp/base/lang /data/liuxueliang/work/ENV/exp/base/gmm/mono /data/liuxueliang/work/ENV/exp/base/gmm/mono_ali
+successfully finish splitting feature data!
+steps/new_align_si.sh: feature type is delta
+steps/new_align_si.sh: aligning data in /data/vipkid_feats/train_set/mfcc_pitch/librispeech using model from /data/liuxueliang/work/ENV/exp/base/gmm/mono, putting alignments in /data/liuxueliang/work/ENV/exp/base/gmm/mono_ali
+steps/diagnostic/analyze_alignments.sh --cmd run.pl /data/liuxueliang/work/ENV/exp/base/lang /data/liuxueliang/work/ENV/exp/base/gmm/mono_ali
+steps/diagnostic/analyze_alignments.sh: see stats in /data/liuxueliang/work/ENV/exp/base/gmm/mono_ali/log/analyze_alignments.log
+steps/new_align_si.sh: done aligning data.
+Finish aligning train data by mono models.
+steps/new_train_deltas.sh --cmd run.pl 10000 200000 /data/vipkid_feats/train_set/mfcc_pitch/librispeech /data/liuxueliang/work/ENV/exp/base/lang /data/liuxueliang/work/ENV/exp/base/gmm/mono_ali /data/liuxueliang/work/ENV/exp/base/gmm
+successfully finish splitting feature data!
+steps/new_train_deltas.sh: accumulating tree stats
+steps/new_train_deltas.sh: getting questions for tree-building, via clustering
+steps/new_train_deltas.sh: building the tree
+steps/new_train_deltas.sh: converting alignments from /data/liuxueliang/work/ENV/exp/base/gmm/mono_ali to use current tree
+steps/new_train_deltas.sh: compiling graphs of transcripts
+steps/new_train_deltas.sh: training pass 1
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 2
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 3
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 4
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 5
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 6
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 7
+steps/new_train_deltas.sh: training pass 8
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 9
+steps/new_train_deltas.sh: training pass 10
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 11
+steps/new_train_deltas.sh: training pass 12
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 13
+steps/new_train_deltas.sh: training pass 14
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 15
+steps/new_train_deltas.sh: training pass 16
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 17
+steps/new_train_deltas.sh: training pass 18
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 19
+steps/new_train_deltas.sh: training pass 20
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 21
+steps/new_train_deltas.sh: training pass 22
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 23
+steps/new_train_deltas.sh: training pass 24
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 25
+steps/new_train_deltas.sh: training pass 26
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 27
+steps/new_train_deltas.sh: training pass 28
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 29
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 30
+steps/new_train_deltas.sh: aligning data
+steps/new_train_deltas.sh: training pass 31
+steps/new_train_deltas.sh: aligning data
+steps/diagnostic/analyze_alignments.sh --cmd run.pl /data/liuxueliang/work/ENV/exp/base/lang /data/liuxueliang/work/ENV/exp/base/gmm
+steps/diagnostic/analyze_alignments.sh: see stats in /data/liuxueliang/work/ENV/exp/base/gmm/log/analyze_alignments.log
+1 warnings in /data/liuxueliang/work/ENV/exp/base/gmm/log/build_tree.log
+3051 warnings in /data/liuxueliang/work/ENV/exp/base/gmm/log/acc.*.*.log
+23309 warnings in /data/liuxueliang/work/ENV/exp/base/gmm/log/align.*.*.log
+/data/liuxueliang/work/ENV/exp/base/gmm: nj=72 align prob=-99.80 over 883.31h [retry=0.1%, fail=0.0%] states=7768 gauss=200000 tree-impr=4.13
+steps/new_train_deltas.sh: Done training system with delta+delta-delta features in /data/liuxueliang/work/ENV/exp/base/gmm
+Successfully finish training hmm-gmm!

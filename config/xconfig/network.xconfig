@@ -1,0 +1,9 @@
+input dim=40 name=input
+
+lstmp-layer name=lstm1 input=input cell-dim=2048 recurrent-projection-dim=512
+lstmp-layer name=lstm2 input=lstm1 cell-dim=2048 recurrent-projection-dim=512
+affine-layer name=affine1 input=lstm2 dim=1024
+affine-layer name=affine2 input=affine1 dim=1024
+
+output-layer name=output input=affine2 dim=7720 output-delay=0
+
